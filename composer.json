@@ -5,7 +5,12 @@
     "keywords": [
         "php",
         "laravel",
-        "template"
+        "locations",
+        "country",
+        "city",
+        "area",
+        "database",
+        "filament"
     ],
     "license": "MIT",
     "autoload": {
