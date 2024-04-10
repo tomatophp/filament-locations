@@ -3,6 +3,15 @@
 
 Database Seeds for Locations for FilamentPHP
 
+## Screenshots
+
+![Countires](./arts/country.png)
+![Edit Countires](./arts/edit-country.png)
+![Languages](./arts/languages.png)
+![Currency](./arts/currency.png)
+![Locaitons](./arts/locations.png)
+
+
 ## Installation
 
 ```bash
