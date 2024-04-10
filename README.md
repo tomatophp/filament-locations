@@ -17,7 +17,7 @@ php artisan filament-locations:install
 finally reigster the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
 
 ```php
-$panel->plugin(\TomatoPHP\FilamentTranslations\FilamentTranslationsPlugin::make())
+->plugin(\TomatoPHP\FilamentLocations\FilamentLocationsPlugin::make())
 ```
 
 

@@ -38,8 +38,13 @@ class City extends Model
     /**
      * @return BelongsTo
      */
-    public  function  country(): BelongsTo
+    public  function country(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
+    public function areas()
+    {
+        return $this->hasMany(Area::class);
     }
 }

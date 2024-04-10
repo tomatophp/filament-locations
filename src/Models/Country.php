@@ -75,4 +75,10 @@ class Country extends Model
         'timezones' => 'json',
         'is_activated' => 'boolean'
     ];
+
+
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
 }

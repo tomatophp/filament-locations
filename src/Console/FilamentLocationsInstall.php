@@ -37,11 +37,8 @@ class FilamentLocationsInstall extends Command
     public function handle()
     {
         $this->info('Publish Vendor Assets');
-        $this->callSilent('optimize:clear');
-        $this->yarnCommand(['install']);
-        $this->yarnCommand(['build']);
         $this->artisanCommand(["migrate"]);
         $this->artisanCommand(["optimize:clear"]);
-        $this->info('filamentLocations installed successfully.');
+        $this->info('Filament Locations installed successfully.');
     }
 }
