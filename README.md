@@ -1,15 +1,21 @@
-![Screenshot of Login](./arts/screenshot.png)
+![Screenshot of Login](https://github.com/tomatophp/filament-locations/blob/master/arts/3x1io-tomato-locations.jpg)
+
 # Filament locations
+
+[![Latest Stable Version](https://poser.pugx.org/tomatophp/filament-locations/version.svg)](https://packagist.org/packages/tomatophp/filament-locations)
+[![PHP Version Require](http://poser.pugx.org/tomatophp/filament-locations/require/php)](https://packagist.org/packages/tomatophp/filament-locations)
+[![License](https://poser.pugx.org/tomatophp/filament-locations/license.svg)](https://packagist.org/packages/tomatophp/filament-locations)
+[![Downloads](https://poser.pugx.org/tomatophp/filament-locations/d/total.svg)](https://packagist.org/packages/tomatophp/filament-locations)
 
 Database Seeds for Locations for FilamentPHP
 
 ## Screenshots
 
-![Countires](./arts/country.png)
-![Edit Countires](./arts/edit-country.png)
-![Languages](./arts/languages.png)
-![Currency](./arts/currency.png)
-![Locaitons](./arts/locations.png)
+![Countires](https://github.com/tomatophp/filament-locations/blob/master/arts/country.png)
+![Edit Countires](https://github.com/tomatophp/filament-locations/blob/master/arts/edit-country.png)
+![Languages](https://github.com/tomatophp/filament-locations/blob/master/arts/languages.png)
+![Currency](https://github.com/tomatophp/filament-locations/blob/master/arts/currency.png)
+![Locaitons](https://github.com/tomatophp/filament-locations/blob/master/arts/locations.png)
 
 
 ## Installation
