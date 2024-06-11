@@ -1,7 +1,7 @@
 {
     "name": "tomatophp/filament-locations",
     "type": "library",
-    "description": "Database Seeds for Locations for FilamentPHP",
+    "description": "Database Seeds for Countries / Cities / Areas / Languages / Currancy with ready to use resources for FilamentPHP",
     "keywords": [
         "php",
         "laravel",
