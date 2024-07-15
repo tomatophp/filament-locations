@@ -11,30 +11,32 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locations', function (Blueprint $table) {
-            $table->id();
+        if(!Schema::hasTable('locations')){
+            Schema::create('locations', function (Blueprint $table) {
+                $table->id();
 
-            //Link To Table
-            $table->string('model_type')->nullable();
-            $table->unsignedInteger('model_id')->nullable();
+                //Link To Table
+                $table->string('model_type')->nullable();
+                $table->unsignedInteger('model_id')->nullable();
 
 
-            $table->string('street');
-            $table->foreignId('area_id')->nullable()->constrained('areas')->onDelete('cascade');
-            $table->foreignId('city_id')->nullable()->constrained('cities')->onDelete('cascade');
-            $table->foreignId('country_id')->nullable()->constrained('countries')->onDelete('cascade');
-            $table->unsignedInteger('home_number')->nullable();
-            $table->unsignedInteger('flat_number')->nullable();
-            $table->unsignedInteger('floor_number')->nullable();
-            $table->string('mark')->nullable();
-            $table->text('map_url')->nullable();
-            $table->string('note')->nullable();
-            $table->string('lat')->nullable();
-            $table->string('lng')->nullable();
-            $table->string('zip')->nullable();
-            $table->boolean('is_main')->default(0)->nullable();
-            $table->timestamps();
-        });
+                $table->string('street');
+                $table->foreignId('area_id')->nullable()->constrained('areas')->onDelete('cascade');
+                $table->foreignId('city_id')->nullable()->constrained('cities')->onDelete('cascade');
+                $table->foreignId('country_id')->nullable()->constrained('countries')->onDelete('cascade');
+                $table->unsignedInteger('home_number')->nullable();
+                $table->unsignedInteger('flat_number')->nullable();
+                $table->unsignedInteger('floor_number')->nullable();
+                $table->string('mark')->nullable();
+                $table->text('map_url')->nullable();
+                $table->string('note')->nullable();
+                $table->string('lat')->nullable();
+                $table->string('lng')->nullable();
+                $table->string('zip')->nullable();
+                $table->boolean('is_main')->default(0)->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -42,6 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('locations');
     }
 };
