@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use TomatoPHP\FilamentLocations\Resources\CurrencyResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListCurrencies extends ManageRecords
 {
@@ -23,5 +25,10 @@ class ListCurrencies extends ManageRecords
         return [
             Actions\CreateAction::make()->label(trans('filament-locations::messages.currency.create')),
         ];
+    }
+
+    protected function paginateTableQuery(Builder $query): Paginator
+    {
+        return $query->simplePaginate(($this->getTableRecordsPerPage() === 'all') ? $query->count() : $this->getTableRecordsPerPage());
     }
 }
