@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use TomatoPHP\FilamentLocations\Resources\LanguageResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListLanguages extends ManageRecords
 {
@@ -24,5 +26,10 @@ class ListLanguages extends ManageRecords
         return [
             Actions\CreateAction::make()->label(trans('filament-locations::messages.languages.create'))
         ];
+    }
+
+    protected function paginateTableQuery(Builder $query): Paginator
+    {
+        return $query->simplePaginate(($this->getTableRecordsPerPage() === 'all') ? $query->count() : $this->getTableRecordsPerPage());
     }
 }
