@@ -5,6 +5,7 @@ namespace TomatoPHP\FilamentLocations;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Illuminate\View\View;
+use Nwidart\Modules\Module;
 use TomatoPHP\FilamentLocations\Resources\AreaResource;
 use TomatoPHP\FilamentLocations\Resources\CityResource;
 use TomatoPHP\FilamentLocations\Resources\CountryResource;
@@ -14,6 +15,8 @@ use TomatoPHP\FilamentLocations\Resources\LocationResource;
 
 class FilamentLocationsPlugin implements Plugin
 {
+    private bool $isActive = false;
+
     public function getId(): string
     {
         return 'filament-locations';
@@ -21,24 +24,35 @@ class FilamentLocationsPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $resources = [];
-        if(config('filament-locations.resources.city')){
-            $resources[] = CityResource::class;
+        if(class_exists(Module::class)){
+            if(\Nwidart\Modules\Facades\Module::find('FilamentLocations')->isEnabled()){
+                $this->isActive = true;
+            }
         }
-        if(config('filament-locations.resources.country')){
-            $resources[] = CountryResource::class;
-        }
-        if(config('filament-locations.resources.languages')){
-            $resources[] = LanguageResource::class;
-        }
-        if(config('filament-locations.resources.currency')){
-            $resources[] = CurrencyResource::class;
-        }
-        if(config('filament-locations.resources.locations')){
-            $resources[] = LocationResource::class;
+        else {
+            $this->isActive = true;
         }
 
-        $panel->resources($resources);
+        if($this->isActive) {
+            $resources = [];
+            if (config('filament-locations.resources.city')) {
+                $resources[] = CityResource::class;
+            }
+            if (config('filament-locations.resources.country')) {
+                $resources[] = CountryResource::class;
+            }
+            if (config('filament-locations.resources.languages')) {
+                $resources[] = LanguageResource::class;
+            }
+            if (config('filament-locations.resources.currency')) {
+                $resources[] = CurrencyResource::class;
+            }
+            if (config('filament-locations.resources.locations')) {
+                $resources[] = LocationResource::class;
+            }
+
+            $panel->resources($resources);
+        }
     }
 
     public function boot(Panel $panel): void

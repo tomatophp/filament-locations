@@ -1,0 +1,29 @@
+{
+    "name": "FilamentLocations",
+    "alias": "filament-locations",
+    "description": {
+        "ar": "بيانات الدول والمناطق مخزنة في قاعدة البيانات",
+        "en": "Database Seeds for Locations for FilamentPHP",
+        "gr": "Database Seeds for Locations for FilamentPHP",
+        "sp": "Database Seeds for Locations for FilamentPHP"
+    },
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "TomatoPHP\\FilamentLocations\\FilamentLocationsServiceProvider"
+    ],
+    "files": [],
+    "title": {
+        "ar": "المناطق",
+        "en": "Locations Seeder",
+        "gr": "Locations Seeder",
+        "sp": "Locations Seeder"
+    },
+    "color": "#cc1448",
+    "icon": "heroicon-c-globe-asia-australia",
+    "placeholder": "https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/3x1io-tomato-locations.jpg",
+    "type": "plugin",
+    "version": "v1.0.4",
+    "github" : "https://github.com/tomatophp/filament-locations",
+    "docs" : "https://github.com/tomatophp/filament-locations"
+}
