@@ -23,7 +23,7 @@
     "icon": "heroicon-c-globe-asia-australia",
     "placeholder": "https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/3x1io-tomato-locations.jpg",
     "type": "plugin",
-    "version": "v1.0.4",
+    "version": "v1.0.5",
     "github" : "https://github.com/tomatophp/filament-locations",
     "docs" : "https://github.com/tomatophp/filament-locations"
 }
