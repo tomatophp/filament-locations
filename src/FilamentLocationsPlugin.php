@@ -25,7 +25,7 @@ class FilamentLocationsPlugin implements Plugin
     public function register(Panel $panel): void
     {
         if(class_exists(Module::class)){
-            if(\Nwidart\Modules\Facades\Module::find('FilamentLocations')->isEnabled()){
+            if(\Nwidart\Modules\Facades\Module::find('FilamentLocations')?->isEnabled()){
                 $this->isActive = true;
             }
         }
