@@ -37,13 +37,58 @@ finally reigster the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
 ->plugin(\TomatoPHP\FilamentLocations\FilamentLocationsPlugin::make())
 ```
 
-## Currency Helper
+## Use Database Driver
 
-```php
-dollar($amount)
+to use database driver or if you don't have "sqlite" on your app, you can change the driver on config to "database" first publish the config
+
+
+```bash
+php artisan vendor:publish --tag="filament-locations-config"
 ```
 
-it will return the money amount with the currency symbol
+after that go to `config/filament-locations.php` and change the driver to "database"
+
+```php
+    'driver' => 'database'
+```
+
+now you need to run migration
+
+```bash
+php artisan migrate
+```
+
+now load the data to seeder
+
+```bash
+php artisan filament-locations:seed
+```
+
+and the full data will be migrated to your database
+
+## Use Custom JSON Files
+
+if you like to use your json data files it's easy you can just change the path of json on your config file with the matched json schema
+
+```php
+    'driver' => 'json',
+    
+    'json' => [
+        'countries' => base_path('resources/json/countries.json'),
+        'cities' => base_path('resources/json/cities.json'),
+        'areas' => base_path('resources/json/areas.json'),
+        'languages' => base_path('resources/json/languages.json'),
+        'currencies' => base_path('resources/json/currencies.json'),
+    ],
+```
+
+## Currency Helper
+
+we have ready to use helper to convert the money amount to the currency symbol
+
+```php
+dollar($amount) // Output $100.00
+```
 
 ## Publish Assets
 
