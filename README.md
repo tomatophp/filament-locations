@@ -1,12 +1,15 @@
 ![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/3x1io-tomato-locations.jpg)
 
-# Filament Locations Seeder
+# Filament Locations
 
+[![Dependabot Updates](https://github.com/tomatophp/filament-locations/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/tomatophp/filament-locations/actions/workflows/dependabot/dependabot-updates)
+[![PHP Code Styling](https://github.com/tomatophp/filament-locations/actions/workflows/fix-php-code-styling.yml/badge.svg)](https://github.com/tomatophp/filament-locations/actions/workflows/fix-php-code-styling.yml)
+[![Tests](https://github.com/tomatophp/filament-locations/actions/workflows/tests.yml/badge.svg)](https://github.com/tomatophp/filament-locations/actions/workflows/tests.yml)
 [![Latest Stable Version](https://poser.pugx.org/tomatophp/filament-locations/version.svg)](https://packagist.org/packages/tomatophp/filament-locations)
 [![License](https://poser.pugx.org/tomatophp/filament-locations/license.svg)](https://packagist.org/packages/tomatophp/filament-locations)
 [![Downloads](https://poser.pugx.org/tomatophp/filament-locations/d/total.svg)](https://packagist.org/packages/tomatophp/filament-locations)
 
-Database Seeds for Countries / Cities / Areas / Languages / Currancy with ready to use resources for FilamentPHP
+A database of countries, cities, area, languages, currenacy with json base and database base for FilamentPHP
 
 ## Screenshots
 

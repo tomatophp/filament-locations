@@ -1,9 +1,9 @@
 ---
-name: Locations Seeder
+name: Locations
 slug: 3x1io-tomato-locations
 author_slug: 3x1io
 categories: [developer-tool]
-description: Database Seeds for Locations for FilamentPHP
+description: A database of countries, cities, area, languages, currenacy with json base and database base for FilamentPHP.
 discord_url: 
 docs_url: https://raw.githubusercontent.com/tomatophp/filament-locations/master/README.md
 github_repository: tomatophp/filament-locations
