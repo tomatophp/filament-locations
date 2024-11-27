@@ -37,6 +37,28 @@ finally reigster the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
 ->plugin(\TomatoPHP\FilamentLocations\FilamentLocationsPlugin::make())
 ```
 
+## Disable Setting Hub 
+
+to disable the setting hub you can use this method
+
+```php
+->plugin(\TomatoPHP\FilamentLocations\FilamentLocationsPlugin::make()->settingsHub(false))
+```
+
+## Disable Resources
+
+to disable the resources you can use this method
+
+```php
+->plugin(
+\TomatoPHP\FilamentLocations\FilamentLocationsPlugin::make()
+    ->countries(false)
+    ->languages(false)
+    ->currency(false)
+    ->locations(false)
+)
+```
+
 ## Use Database Driver
 
 to use database driver or if you don't have "sqlite" on your app, you can change the driver on config to "database" first publish the config
