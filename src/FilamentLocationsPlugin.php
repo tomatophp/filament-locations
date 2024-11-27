@@ -133,6 +133,6 @@ class FilamentLocationsPlugin implements Plugin
 
     public static function make(): FilamentLocationsPlugin
     {
-        return new FilamentLocationsPlugin();
+        return new FilamentLocationsPlugin;
     }
 }
