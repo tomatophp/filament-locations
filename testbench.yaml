@@ -1,0 +1,30 @@
+providers:
+  - BladeUI\Icons\BladeIconsServiceProvider
+  - BladeUI\Heroicons\BladeHeroiconsServiceProvider
+  - Filament\Actions\ActionsServiceProvider
+  - Filament\FilamentServiceProvider
+  - Filament\Forms\FormsServiceProvider
+  - Filament\Infolists\InfolistsServiceProvider
+  - Filament\Notifications\NotificationsServiceProvider
+  - Filament\Support\SupportServiceProvider
+  - Filament\Tables\TablesServiceProvider
+  - Filament\Widgets\WidgetsServiceProvider
+  - RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider
+  - Filament\SpatieLaravelSettingsPluginServiceProvider
+  - TomatoPHP\FilamentSettingsHub\FilamentSettingsHubServiceProvider
+  - TomatoPHP\FilamentLocations\FilamentLocationsServiceProvider
+  - TomatoPHP\FilamentLocations\Tests\AdminPanelProvider
+seeders:
+  - TomatoPHP\FilamentLocations\Tests\Database\Seeders\LocationSeed
+env:
+  - FILAMENT_LOCATIONS_DRIVER=database
+workbench:
+  welcome: true
+  install: true
+  start: /
+  guard: testing
+  discovers:
+    web: true
+    api: false
+    commands: false
+    views: true

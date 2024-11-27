@@ -2,9 +2,9 @@
 
 namespace TomatoPHP\FilamentLocations\Resources\CityResource\Pages;
 
-use TomatoPHP\FilamentLocations\Resources\CityResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use TomatoPHP\FilamentLocations\Resources\CityResource;
 
 class EditCity extends EditRecord
 {

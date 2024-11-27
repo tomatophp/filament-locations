@@ -2,13 +2,11 @@
 
 namespace TomatoPHP\FilamentLocations\Resources\CurrencyResource\Pages;
 
-use Filament\Resources\Pages\ManageRecords;
-use Illuminate\Database\Eloquent\Model;
-use TomatoPHP\FilamentLocations\Resources\CurrencyResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ManageRecords;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
+use TomatoPHP\FilamentLocations\Resources\CurrencyResource;
 
 class ListCurrencies extends ManageRecords
 {
@@ -19,11 +17,12 @@ class ListCurrencies extends ManageRecords
         return trans('filament-locations::messages.currency.title');
     }
 
-
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()->label(trans('filament-locations::messages.currency.create')),
+            Actions\CreateAction::make()
+                ->visible(config('filament-locations.driver') !== 'json')
+                ->label(trans('filament-locations::messages.currency.create')),
         ];
     }
 

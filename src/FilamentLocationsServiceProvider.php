@@ -4,6 +4,7 @@ namespace TomatoPHP\FilamentLocations;
 
 use Illuminate\Support\ServiceProvider;
 
+require_once __DIR__ . '/helpers.php';
 
 class FilamentLocationsServiceProvider extends ServiceProvider
 {
@@ -11,42 +12,32 @@ class FilamentLocationsServiceProvider extends ServiceProvider
     {
         //Register generate command
         $this->commands([
-           \TomatoPHP\FilamentLocations\Console\FilamentLocationsInstall::class,
+            \TomatoPHP\FilamentLocations\Console\FilamentLocationsInstall::class,
+            \TomatoPHP\FilamentLocations\Console\FilamentLocationsLoad::class,
         ]);
 
         //Register Config file
-        $this->mergeConfigFrom(__DIR__.'/../config/filament-locations.php', 'filament-locations');
+        $this->mergeConfigFrom(__DIR__ . '/../config/filament-locations.php', 'filament-locations');
 
         //Publish Config
         $this->publishes([
-           __DIR__.'/../config/filament-locations.php' => config_path('filament-locations.php'),
+            __DIR__ . '/../config/filament-locations.php' => config_path('filament-locations.php'),
         ], 'filament-locations-config');
 
         //Register Migrations
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        //Publish Migrations
-        $this->publishes([
-           __DIR__.'/../database/migrations' => database_path('migrations'),
-        ], 'filament-locations-migrations');
-        //Register views
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'filament-locations');
-
-        //Publish Views
-        $this->publishes([
-           __DIR__.'/../resources/views' => resource_path('views/vendor/filament-locations'),
-        ], 'filament-locations-views');
+        if (config('filament-locations.driver') === 'database') {
+            $this->loadMigrationsFrom(__DIR__ . '/../database/sql-migrations');
+        }
 
         //Register Langs
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'filament-locations');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'filament-locations');
 
         //Publish Lang
         $this->publishes([
-           __DIR__.'/../resources/lang' => base_path('lang/vendor/filament-locations'),
+            __DIR__ . '/../resources/lang' => base_path('lang/vendor/filament-locations'),
         ], 'filament-locations-lang');
-
-        //Register Routes
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
     }
 

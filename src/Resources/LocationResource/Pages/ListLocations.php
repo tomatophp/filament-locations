@@ -2,12 +2,11 @@
 
 namespace TomatoPHP\FilamentLocations\Resources\LocationResource\Pages;
 
-use Filament\Resources\Pages\ManageRecords;
-use TomatoPHP\FilamentLocations\Resources\LocationResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ManageRecords;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
+use TomatoPHP\FilamentLocations\Resources\LocationResource;
 
 class ListLocations extends ManageRecords
 {
@@ -17,7 +16,6 @@ class ListLocations extends ManageRecords
     {
         return trans('filament-locations::messages.location.title');
     }
-
 
     protected function getHeaderActions(): array
     {

@@ -2,16 +2,13 @@
 
 namespace TomatoPHP\FilamentLocations\Resources;
 
-use TomatoPHP\FilamentLocations\Resources\LanguageResource\Pages;
-use TomatoPHP\FilamentLocations\Resources\LanguageResource\RelationManagers;
-use TomatoPHP\FilamentLocations\Models\Language;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use TomatoPHP\FilamentLocations\Models\Language;
+use TomatoPHP\FilamentLocations\Resources\LanguageResource\Pages;
 
 class LanguageResource extends Resource
 {
@@ -24,11 +21,10 @@ class LanguageResource extends Resource
         return trans('filament-locations::messages.group');
     }
 
-    public static function getNavigationLabel():string
+    public static function getNavigationLabel(): string
     {
         return trans('filament-locations::messages.languages.title');
     }
-
 
     public static function form(Form $form): Form
     {
@@ -79,12 +75,12 @@ class LanguageResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->visible(config('filament-locations.driver') !== 'json'),
+                Tables\Actions\DeleteAction::make()->visible(config('filament-locations.driver') !== 'json'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()->visible(config('filament-locations.driver') !== 'json'),
                 ]),
             ]);
     }

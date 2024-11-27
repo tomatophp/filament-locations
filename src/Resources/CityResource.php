@@ -2,16 +2,11 @@
 
 namespace TomatoPHP\FilamentLocations\Resources;
 
-use TomatoPHP\FilamentLocations\Resources\CityResource\Pages;
-use TomatoPHP\FilamentLocations\Resources\CityResource\RelationManagers;
-use TomatoPHP\FilamentLocations\Models\City;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use TomatoPHP\FilamentLocations\Models\City;
+use TomatoPHP\FilamentLocations\Resources\CityResource\Pages;
 use TomatoPHP\FilamentLocations\Resources\CityResource\RelationManagers\AreasRelationManager;
 use TomatoPHP\FilamentLocations\Resources\CountryResource\Pages\ListCountries;
 
@@ -68,7 +63,7 @@ class CityResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AreasRelationManager::make()
+            AreasRelationManager::make(),
         ];
     }
 
@@ -77,6 +72,7 @@ class CityResource extends Resource
         return [
             'index' => ListCountries::route('/'),
             'edit' => Pages\EditCity::route('/{record}/edit'),
+            'view' => Pages\ViewCity::route('/{record}/show'),
         ];
     }
 }

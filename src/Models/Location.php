@@ -5,17 +5,17 @@ namespace TomatoPHP\FilamentLocations\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property integer $id
- * @property integer $account_id
+ * @property int $id
+ * @property int $account_id
  * @property string $street
  * @property string $area
  * @property string $city
  * @property string $zip
- * @property boolean $is_main
+ * @property bool $is_main
  * @property string $country
- * @property integer $home_number
- * @property integer $flat_number
- * @property integer $floor_number
+ * @property int $home_number
+ * @property int $flat_number
+ * @property int $floor_number
  * @property string $mark
  * @property string $map_url
  * @property string $note
@@ -48,31 +48,33 @@ class Location extends Model
         'lat',
         'lng',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     protected $casts = [
         'is_main' => 'boolean',
     ];
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function modal()
     {
-       return $this->morphTo();
+        return $this->morphTo();
     }
 
-    public function city(){
+    public function city()
+    {
         return $this->belongsTo(City::class, 'city_id', 'id');
     }
 
-    public function area(){
+    public function area()
+    {
         return $this->belongsTo(Area::class, 'area_id', 'id');
     }
 
-    public function country(){
+    public function country()
+    {
         return $this->belongsTo(Country::class, 'country_id', 'id');
     }
 }

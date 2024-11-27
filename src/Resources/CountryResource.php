@@ -2,16 +2,14 @@
 
 namespace TomatoPHP\FilamentLocations\Resources;
 
-use TomatoPHP\FilamentLocations\Resources\CountryResource\Pages;
-use TomatoPHP\FilamentLocations\Resources\CountryResource\RelationManagers;
-use TomatoPHP\FilamentLocations\Models\Country;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use TomatoPHP\FilamentLocations\Models\Country;
+use TomatoPHP\FilamentLocations\Resources\CountryResource\Pages;
+use TomatoPHP\FilamentLocations\Resources\CountryResource\RelationManagers;
 
 class CountryResource extends Resource
 {
@@ -24,17 +22,16 @@ class CountryResource extends Resource
         return trans('filament-locations::messages.group');
     }
 
-    public static function getNavigationLabel():string
+    public static function getNavigationLabel(): string
     {
         return trans('filament-locations::messages.country.title');
     }
-
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-               Forms\Components\Grid::make(['default' => 2])
+                Forms\Components\Grid::make(['default' => 2])
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->label(trans('filament-locations::messages.country.form.title'))
@@ -116,7 +113,7 @@ class CountryResource extends Resource
                             ->label(trans('filament-locations::messages.country.form.flag')),
                         Forms\Components\Toggle::make('is_activated')
                             ->label(trans('filament-locations::messages.country.form.is_activated')),
-                    ])
+                    ]),
             ]);
     }
 
@@ -124,8 +121,15 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('emoji')
+                    ->label(trans('filament-locations::messages.country.form.emoji'))
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label(trans('filament-locations::messages.country.form.name'))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('currency_symbol')
+                    ->label(trans('filament-locations::messages.country.form.currency_symbol'))
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('code')
                     ->label(trans('filament-locations::messages.country.form.code'))
@@ -177,13 +181,6 @@ class CountryResource extends Resource
                     ->label(trans('filament-locations::messages.country.form.currency_name'))
                     ->toggleable(isToggledHiddenByDefault: false)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('currency_symbol')
-                    ->label(trans('filament-locations::messages.country.form.currency_symbol'))
-                    ->toggleable(isToggledHiddenByDefault: false)
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('emoji')
-                    ->label(trans('filament-locations::messages.country.form.emoji'))
-                    ->searchable(),
                 Tables\Columns\IconColumn::make('is_activated')
                     ->label(trans('filament-locations::messages.country.form.is_activated'))
                     ->boolean(),
@@ -192,12 +189,13 @@ class CountryResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make()->visible(config('filament-locations.driver') !== 'json'),
+                Tables\Actions\DeleteAction::make()->visible(config('filament-locations.driver') !== 'json'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()->visible(config('filament-locations.driver') !== 'json'),
                 ]),
             ]);
     }
@@ -205,16 +203,20 @@ class CountryResource extends Resource
     public static function getRelations(): array
     {
         return [
-           RelationManagers\CitiesRelationManager::make()
+            RelationManagers\CitiesRelationManager::make(),
         ];
     }
 
     public static function getPages(): array
     {
-        return [
+        return config('filament-locations.driver') !== 'json' ? [
             'index' => Pages\ListCountries::route('/'),
             'create' => Pages\CreateCountry::route('/create'),
             'edit' => Pages\EditCountry::route('/{record}/edit'),
+            'view' => Pages\ViewCountry::route('/{record}/show'),
+        ] : [
+            'index' => Pages\ListCountries::route('/'),
+            'view' => Pages\ViewCountry::route('/{record}/show'),
         ];
     }
 }

@@ -3,9 +3,11 @@
 namespace TomatoPHP\FilamentLocations\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
+use TomatoPHP\FilamentLocations\Traits\SwitchDriver;
 
 /**
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $code
  * @property string $phone
@@ -14,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $numeric_code
  * @property array $translations
  * @property array $timezones
- * @property boolean $is_activated
+ * @property bool $is_activated
  * @property string $created_at
  * @property string $updated_at
  * @property string $flag
@@ -33,6 +35,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Country extends Model
 {
+    use SwitchDriver;
+
     /**
      * The "type" of the auto-incrementing ID.
      *
@@ -73,12 +77,53 @@ class Country extends Model
     protected $casts = [
         'translations' => 'json',
         'timezones' => 'json',
-        'is_activated' => 'boolean'
+        'is_activated' => 'boolean',
     ];
-
 
     public function cities()
     {
         return $this->hasMany(City::class);
+    }
+
+    public function getSchema()
+    {
+        return [
+            'name',
+            'code',
+            'phone',
+            'lat',
+            'lng',
+            'created_at',
+            'updated_at',
+            'translations',
+            'timezones',
+            'numeric_code',
+            'is_activated',
+            'flag',
+            'emojiU',
+            'emoji',
+            'wikiDataId',
+            'currency_symbol',
+            'currency_name',
+            'currency',
+            'region',
+            'native',
+            'tld',
+            'capital',
+            'nationality',
+            'iso3',
+        ];
+    }
+
+    public function getRows()
+    {
+        $countryJson = config('filament-locations.json.countries') ?: __DIR__ . '/../../database/data/countries.json';
+
+        $jsonFileExists = File::exists($countryJson);
+        if ($jsonFileExists) {
+            return json_decode(File::get($countryJson), true);
+        } else {
+            return [];
+        }
     }
 }

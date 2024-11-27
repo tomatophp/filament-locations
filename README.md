@@ -34,6 +34,14 @@ finally reigster the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
 ->plugin(\TomatoPHP\FilamentLocations\FilamentLocationsPlugin::make())
 ```
 
+## Currency Helper
+
+```php
+dollar($amount)
+```
+
+it will return the money amount with the currency symbol
+
 ## Publish Assets
 
 you can publish config file by use this command

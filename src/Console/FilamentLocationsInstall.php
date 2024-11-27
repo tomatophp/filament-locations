@@ -28,7 +28,6 @@ class FilamentLocationsInstall extends Command
         parent::__construct();
     }
 
-
     /**
      * Execute the console command.
      *
@@ -37,8 +36,11 @@ class FilamentLocationsInstall extends Command
     public function handle()
     {
         $this->info('Publish Vendor Assets');
-        $this->artisanCommand(["migrate"]);
-        $this->artisanCommand(["optimize:clear"]);
+        $this->artisanCommand(['migrate']);
+        $this->artisanCommand(['optimize']);
+        if (config('filament-locations.driver') === 'database') {
+            $this->artisanCommand(['filament-locations:seed']);
+        }
         $this->info('Filament Locations installed successfully.');
     }
 }

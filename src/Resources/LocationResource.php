@@ -2,20 +2,16 @@
 
 namespace TomatoPHP\FilamentLocations\Resources;
 
-use Filament\Forms\Components\Select;
-use Filament\Forms\Get;
-use TomatoPHP\FilamentLocations\Fields\LocationSelect;
-use TomatoPHP\FilamentLocations\Resources\LocationResource\Pages;
-use TomatoPHP\FilamentLocations\Resources\LocationResource\RelationManagers;
-use TomatoPHP\FilamentLocations\Models\Location;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use TomatoPHP\FilamentLocations\Views\LocationSelector;
+use TomatoPHP\FilamentLocations\Models\Location;
+use TomatoPHP\FilamentLocations\Resources\LocationResource\Pages;
 
 class LocationResource extends Resource
 {
@@ -28,11 +24,10 @@ class LocationResource extends Resource
         return trans('filament-locations::messages.group');
     }
 
-    public static function getNavigationLabel():string
+    public static function getNavigationLabel(): string
     {
         return trans('filament-locations::messages.location.title');
     }
-
 
     public static function form(Form $form): Form
     {
@@ -47,7 +42,7 @@ class LocationResource extends Resource
                     ->live(),
                 Select::make('city_id')
                     ->label(trans('filament-locations::messages.location.form.city_id'))
-                    ->options(function (Get $get){
+                    ->options(function (Get $get) {
                         return \TomatoPHP\FilamentLocations\Models\City::where('country_id', $get('country_id'))
                             ->get()
                             ->pluck('name', 'id')
@@ -57,7 +52,7 @@ class LocationResource extends Resource
                     ->live(),
                 Select::make('area_id')
                     ->label(trans('filament-locations::messages.location.form.area_id'))
-                    ->options(function (Get $get){
+                    ->options(function (Get $get) {
                         return \TomatoPHP\FilamentLocations\Models\Area::where('city_id', $get('city_id'))
                             ->get()
                             ->pluck('name', 'id')
@@ -145,7 +140,7 @@ class LocationResource extends Resource
                             ->live(),
                         Select::make('city_id')
                             ->label(trans('filament-locations::messages.location.form.city_id'))
-                            ->options(function (Get $get){
+                            ->options(function (Get $get) {
                                 return \TomatoPHP\FilamentLocations\Models\City::where('country_id', $get('country_id'))
                                     ->get()
                                     ->pluck('name', 'id')
@@ -155,7 +150,7 @@ class LocationResource extends Resource
                             ->live(),
                         Select::make('area_id')
                             ->label(trans('filament-locations::messages.location.form.area_id'))
-                            ->options(function (Get $get){
+                            ->options(function (Get $get) {
                                 return \TomatoPHP\FilamentLocations\Models\Area::where('city_id', $get('city_id'))
                                     ->get()
                                     ->pluck('name', 'id')
@@ -164,15 +159,18 @@ class LocationResource extends Resource
                             ->searchable(),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
-                        if(isset($data['country_id']) && !empty($data['country_id']))
+                        if (isset($data['country_id']) && ! empty($data['country_id'])) {
                             $query->where('country_id', $data['country_id']);
-                        if(isset($data['city_id']) && !empty($data['city_id']))
+                        }
+                        if (isset($data['city_id']) && ! empty($data['city_id'])) {
                             $query->where('city_id', $data['city_id']);
-                        if(isset($data['area_id']) && !empty($data['area_id']))
+                        }
+                        if (isset($data['area_id']) && ! empty($data['area_id'])) {
                             $query->where('area_id', $data['area_id']);
+                        }
 
                         return $query;
-                    })
+                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

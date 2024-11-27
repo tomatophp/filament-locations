@@ -7,11 +7,10 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use TomatoPHP\FilamentLocations\Models\City;
-use TomatoPHP\FilamentLocations\Resources\AreaResource\Pages\EditArea;
+use TomatoPHP\FilamentLocations\Resources\CityResource\Pages\EditCity;
+use TomatoPHP\FilamentLocations\Resources\CityResource\Pages\ViewCity;
 
 class CitiesRelationManager extends RelationManager
 {
@@ -77,7 +76,7 @@ class CitiesRelationManager extends RelationManager
                     ->label(trans('filament-locations::messages.country.form.updated_at'))
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
@@ -86,10 +85,14 @@ class CitiesRelationManager extends RelationManager
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('view')
+                    ->icon('heroicon-o-eye')
+                    ->url(fn (City $record): string => ViewCity::getUrl(['record' => $record])),
                 Tables\Actions\Action::make('edit')
+                    ->visible(config('filament-locations.driver') !== 'json')
                     ->label(trans('filament-locations::messages.city.edit'))
                     ->icon('heroicon-o-pencil-square')
-                    ->url(fn (City $record): string => route('filament.'.filament()->getCurrentPanel()->getId().'.resources.cities.edit', $record)),
+                    ->url(fn (City $record): string => EditCity::getUrl(['record' => $record])),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

@@ -4,83 +4,135 @@ namespace TomatoPHP\FilamentLocations;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Illuminate\View\View;
-use Nwidart\Modules\Module;
-use TomatoPHP\FilamentLocations\Resources\AreaResource;
+use TomatoPHP\FilamentLocations\Pages\LocationSettings;
 use TomatoPHP\FilamentLocations\Resources\CityResource;
 use TomatoPHP\FilamentLocations\Resources\CountryResource;
 use TomatoPHP\FilamentLocations\Resources\CurrencyResource;
 use TomatoPHP\FilamentLocations\Resources\LanguageResource;
 use TomatoPHP\FilamentLocations\Resources\LocationResource;
+use TomatoPHP\FilamentSettingsHub\Facades\FilamentSettingsHub;
+use TomatoPHP\FilamentSettingsHub\Services\Contracts\SettingHold;
 
 class FilamentLocationsPlugin implements Plugin
 {
-    private bool $isActive = false;
+    private bool $useSettingsHub = true;
+
+    private bool $countries = true;
+
+    private bool $languages = true;
+
+    private bool $currency = true;
+
+    private bool $locations = true;
 
     public function getId(): string
     {
         return 'filament-locations';
     }
 
+    public function settingsHub(bool $useSettingsHub = true): static
+    {
+        $this->useSettingsHub = $useSettingsHub;
+
+        return $this;
+    }
+
+    public function hasSettingsHub(): bool
+    {
+        return $this->useSettingsHub;
+    }
+
+    public function countries(bool $countries = true): static
+    {
+        $this->countries = $countries;
+
+        return $this;
+    }
+
+    public function hasCountries(): bool
+    {
+        return $this->countries;
+    }
+
+    public function languages(bool $languages = true): static
+    {
+        $this->languages = $languages;
+
+        return $this;
+    }
+
+    public function hasLanguages(): bool
+    {
+        return $this->languages;
+    }
+
+    public function currency(bool $currency = true): static
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    public function hasCurrency(): bool
+    {
+        return $this->currency;
+    }
+
+    public function locations(bool $locations = true): static
+    {
+        $this->locations = $locations;
+
+        return $this;
+    }
+
+    public function hasLocations(): bool
+    {
+        return $this->locations;
+    }
+
     public function register(Panel $panel): void
     {
-        if(class_exists(Module::class) && \Nwidart\Modules\Facades\Module::find('FilamentLocations')?->isEnabled()){
-            $this->isActive = true;
+        $resources = [];
+        if ($this->hasCountries()) {
+            $resources[] = CityResource::class;
+            $resources[] = CountryResource::class;
         }
-        else {
-            $this->isActive = true;
+        if ($this->hasLanguages()) {
+            $resources[] = LanguageResource::class;
+        }
+        if ($this->hasCurrency()) {
+            $resources[] = CurrencyResource::class;
+        }
+        if ($this->hasLocations()) {
+            $resources[] = LocationResource::class;
         }
 
-        if($this->isActive) {
-            $resources = [];
-            if (config('filament-locations.resources.city')) {
-                $resources[] = CityResource::class;
-            }
-            if (config('filament-locations.resources.country')) {
-                $resources[] = CountryResource::class;
-            }
-            if (config('filament-locations.resources.languages')) {
-                $resources[] = LanguageResource::class;
-            }
-            if (config('filament-locations.resources.currency')) {
-                $resources[] = CurrencyResource::class;
-            }
-            if (config('filament-locations.resources.locations')) {
-                $resources[] = LocationResource::class;
-            }
-
-            $panel->resources($resources);
+        if ($this->hasSettingsHub()) {
+            $panel->pages([
+                LocationSettings::class,
+            ]);
         }
+
+        $panel->resources($resources);
     }
 
     public function boot(Panel $panel): void
     {
-        //
+        if ($this->hasSettingsHub()) {
+            FilamentSettingsHub::register([
+                SettingHold::make()
+                    ->page(LocationSettings::class)
+                    ->order(0)
+                    ->label('filament-locations::messages.settings.location.title')
+                    ->icon('heroicon-o-map')
+                    ->description('filament-locations::messages.settings.location.description')
+                    ->group('filament-settings-hub::messages.group'),
+            ]);
+        }
     }
 
-    public static function make(): static
+    public static function make(): FilamentLocationsPlugin
     {
-        return new static();
-    }
-
-
-    /**
-     * Returns a View object that renders the language switcher component.
-     *
-     * @return \Illuminate\Contracts\View\View The View object that renders the language switcher component.
-     */
-    private function getLanguageSwitcherView(): View
-    {
-        $locales = config('filament-translations.locals');
-        $currentLocale = app()->getLocale();
-        $currentLanguage = collect($locales)->firstWhere('code', $currentLocale);
-        $otherLanguages = $locales;
-        $showFlags = config('filament-translations.show_flags');
-
-        return view('filament-translations::language-switcher', compact(
-            'otherLanguages',
-            'currentLanguage',
-            'showFlags',
-        ));
+        return new FilamentLocationsPlugin();
     }
 }

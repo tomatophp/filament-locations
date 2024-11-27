@@ -2,16 +2,13 @@
 
 namespace TomatoPHP\FilamentLocations\Resources;
 
-use TomatoPHP\FilamentLocations\Resources\CurrencyResource\Pages;
-use TomatoPHP\FilamentLocations\Resources\CurrencyResource\RelationManagers;
-use TomatoPHP\FilamentLocations\Models\Currency;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use TomatoPHP\FilamentLocations\Models\Currency;
+use TomatoPHP\FilamentLocations\Resources\CurrencyResource\Pages;
 
 class CurrencyResource extends Resource
 {
@@ -24,11 +21,10 @@ class CurrencyResource extends Resource
         return trans('filament-locations::messages.group');
     }
 
-    public static function getNavigationLabel():string
+    public static function getNavigationLabel(): string
     {
         return trans('filament-locations::messages.currency.title');
     }
-
 
     public static function form(Form $form): Form
     {
@@ -93,12 +89,12 @@ class CurrencyResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->visible(config('filament-locations.driver') !== 'json'),
+                Tables\Actions\DeleteAction::make()->visible(config('filament-locations.driver') !== 'json'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()->visible(config('filament-locations.driver') !== 'json'),
                 ]),
             ]);
     }
@@ -113,7 +109,7 @@ class CurrencyResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCurrencies::route('/')
+            'index' => Pages\ListCurrencies::route('/'),
         ];
     }
 }

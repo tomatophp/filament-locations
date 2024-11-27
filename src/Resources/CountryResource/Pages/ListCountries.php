@@ -2,18 +2,17 @@
 
 namespace TomatoPHP\FilamentLocations\Resources\CountryResource\Pages;
 
-use Filament\Resources\Pages\ManageRecords;
-use TomatoPHP\FilamentLocations\Resources\CountryResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ManageRecords;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
+use TomatoPHP\FilamentLocations\Resources\CountryResource;
 
 class ListCountries extends ManageRecords
 {
     protected static string $resource = CountryResource::class;
 
-    public function getTitle():string
+    public function getTitle(): string
     {
         return trans('filament-locations::messages.country.title');
     }
@@ -22,6 +21,7 @@ class ListCountries extends ManageRecords
     {
         return [
             Actions\CreateAction::make()
+                ->visible(config('filament-locations.driver') !== 'json')
                 ->label(trans('filament-locations::messages.country.create')),
         ];
     }
