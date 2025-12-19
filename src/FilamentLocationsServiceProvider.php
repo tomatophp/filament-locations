@@ -10,31 +10,31 @@ class FilamentLocationsServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //Register generate command
+        // Register generate command
         $this->commands([
             \TomatoPHP\FilamentLocations\Console\FilamentLocationsInstall::class,
             \TomatoPHP\FilamentLocations\Console\FilamentLocationsLoad::class,
         ]);
 
-        //Register Config file
+        // Register Config file
         $this->mergeConfigFrom(__DIR__ . '/../config/filament-locations.php', 'filament-locations');
 
-        //Publish Config
+        // Publish Config
         $this->publishes([
             __DIR__ . '/../config/filament-locations.php' => config_path('filament-locations.php'),
         ], 'filament-locations-config');
 
-        //Register Migrations
+        // Register Migrations
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         if (config('filament-locations.driver') === 'database') {
             $this->loadMigrationsFrom(__DIR__ . '/../database/sql-migrations');
         }
 
-        //Register Langs
+        // Register Langs
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'filament-locations');
 
-        //Publish Lang
+        // Publish Lang
         $this->publishes([
             __DIR__ . '/../resources/lang' => base_path('lang/vendor/filament-locations'),
         ], 'filament-locations-lang');
@@ -43,6 +43,6 @@ class FilamentLocationsServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        //you boot methods here
+        // you boot methods here
     }
 }

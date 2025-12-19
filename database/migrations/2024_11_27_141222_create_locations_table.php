@@ -15,7 +15,7 @@ return new class extends Migration
             Schema::create('locations', function (Blueprint $table) {
                 $table->id();
 
-                //Link To Table
+                // Link To Table
                 $table->string('model_type')->nullable();
                 $table->string('model_id')->nullable();
 

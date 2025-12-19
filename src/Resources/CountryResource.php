@@ -2,11 +2,11 @@
 
 namespace TomatoPHP\FilamentLocations\Resources;
 
+use Filament\Actions;
 use Filament\Forms;
 use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
 use Filament\Schemas;
-use Filament\Actions;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use TomatoPHP\FilamentLocations\Models\Country;
@@ -17,7 +17,7 @@ class CountryResource extends Resource
 {
     protected static ?string $model = Country::class;
 
-    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-flag';
+    protected static string | null | \BackedEnum $navigationIcon = 'heroicon-o-flag';
 
     public static function getNavigationGroup(): ?string
     {

@@ -25,36 +25,36 @@ it('can render location settings page', function () {
 });
 
 //
-//it('has site site_address exists', function () {
+// it('has site site_address exists', function () {
 //    $siteSettings = new \TomatoPHP\FilamentLocations\Settings\LocationsSettings;
 //    checkLocationSettingExists($siteSettings, 'site_address');
-//});
+// });
 //
-//it('has site site_phone_code exists', function () {
+// it('has site site_phone_code exists', function () {
 //    $siteSettings = new \TomatoPHP\FilamentLocations\Settings\LocationsSettings;
 //    checkLocationSettingExists($siteSettings, 'site_phone_code');
-//});
+// });
 //
-//it('has site site_location exists', function () {
+// it('has site site_location exists', function () {
 //    $siteSettings = new \TomatoPHP\FilamentLocations\Settings\LocationsSettings;
 //    checkLocationSettingExists($siteSettings, 'site_location');
-//});
+// });
 //
-//it('has site site_currency exists', function () {
+// it('has site site_currency exists', function () {
 //    $siteSettings = new \TomatoPHP\FilamentLocations\Settings\LocationsSettings;
 //    checkLocationSettingExists($siteSettings, 'site_currency');
-//});
+// });
 //
-//it('has site site_language exists', function () {
+// it('has site site_language exists', function () {
 //    $siteSettings = new \TomatoPHP\FilamentLocations\Settings\LocationsSettings;
 //    checkLocationSettingExists($siteSettings, 'site_language');
-//});
+// });
 //
-//it('can render location settings page resource', function () {
+// it('can render location settings page resource', function () {
 //    get(\TomatoPHP\FilamentLocations\Pages\LocationSettings::getUrl())->assertSuccessful();
-//});
+// });
 //
-//it('can validate location settings before save', function () {
+// it('can validate location settings before save', function () {
 //
 //    livewire(\TomatoPHP\FilamentLocations\Pages\LocationSettings::class)
 //        ->fillForm([
@@ -64,9 +64,9 @@ it('can render location settings page', function () {
 //        ->assertHasFormErrors([
 //            'site_currency' => 'required',
 //        ]);
-//});
+// });
 //
-//it('can save site settings', function () {
+// it('can save site settings', function () {
 //    $siteSettings = new \TomatoPHP\FilamentLocations\Settings\LocationsSettings;
 //    $data = $siteSettings->toArray();
 //    $data['site_currency'] = 'USD';
@@ -80,4 +80,4 @@ it('can render location settings page', function () {
 //        'group' => 'locations',
 //        'payload' => json_encode('USD'),
 //    ]);
-//});
+// });

@@ -2,8 +2,8 @@
 
 namespace TomatoPHP\FilamentLocations\Resources;
 
-use Filament\Forms;
 use Filament\Actions;
+use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
@@ -15,7 +15,7 @@ class CurrencyResource extends Resource
 {
     protected static ?string $model = Currency::class;
 
-    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-currency-dollar';
+    protected static string | null | \BackedEnum $navigationIcon = 'heroicon-o-currency-dollar';
 
     public static function getNavigationGroup(): ?string
     {

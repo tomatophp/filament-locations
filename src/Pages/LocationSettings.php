@@ -2,9 +2,9 @@
 
 namespace TomatoPHP\FilamentLocations\Pages;
 
+use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
-use Filament\Actions\Action;
 use Filament\Pages\SettingsPage;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Utilities\Get;
@@ -20,7 +20,7 @@ class LocationSettings extends SettingsPage
 {
     use UseShield;
 
-    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-cog';
+    protected static string | null | \BackedEnum $navigationIcon = 'heroicon-o-cog';
 
     protected static string $settings = LocationsSettings::class;
 

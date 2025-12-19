@@ -3,7 +3,6 @@
 namespace TomatoPHP\FilamentLocations\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use TomatoPHP\FilamentLocations\Models\City;
@@ -15,7 +14,7 @@ class CityResource extends Resource
 {
     protected static ?string $model = City::class;
 
-    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-map';
+    protected static string | null | \BackedEnum $navigationIcon = 'heroicon-o-map';
 
     public static function getNavigationGroup(): ?string
     {

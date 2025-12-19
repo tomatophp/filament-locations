@@ -2,12 +2,12 @@
 
 namespace TomatoPHP\FilamentLocations\Resources;
 
+use Filament\Actions;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
-use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +18,7 @@ class LocationResource extends Resource
 {
     protected static ?string $model = Location::class;
 
-    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-globe-americas';
+    protected static string | null | \BackedEnum $navigationIcon = 'heroicon-o-globe-americas';
 
     public static function getNavigationGroup(): ?string
     {
