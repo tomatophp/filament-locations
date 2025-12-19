@@ -4,9 +4,10 @@ namespace TomatoPHP\FilamentLocations\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Schema;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,7 +18,7 @@ class LocationResource extends Resource
 {
     protected static ?string $model = Location::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-globe-americas';
+    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-globe-americas';
 
     public static function getNavigationGroup(): ?string
     {
@@ -29,7 +30,7 @@ class LocationResource extends Resource
         return trans('filament-locations::messages.location.title');
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form
             ->schema([
@@ -130,7 +131,7 @@ class LocationResource extends Resource
             ])
             ->filters([
                 Tables\Filters\Filter::make('created_at')
-                    ->form([
+                    ->schema([
                         Select::make('country_id')
                             ->label(trans('filament-locations::messages.location.form.country_id'))
                             ->options(function () {
@@ -172,14 +173,14 @@ class LocationResource extends Resource
                         return $query;
                     }),
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+            ->recordActions([
+                Actions\ViewAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

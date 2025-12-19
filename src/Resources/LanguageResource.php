@@ -3,8 +3,9 @@
 namespace TomatoPHP\FilamentLocations\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Actions;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use TomatoPHP\FilamentLocations\Models\Language;
@@ -14,7 +15,7 @@ class LanguageResource extends Resource
 {
     protected static ?string $model = Language::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-language';
+    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-language';
 
     public static function getNavigationGroup(): ?string
     {
@@ -26,7 +27,7 @@ class LanguageResource extends Resource
         return trans('filament-locations::messages.languages.title');
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form
             ->schema([
@@ -74,13 +75,13 @@ class LanguageResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make()->visible(config('filament-locations.driver') !== 'json'),
-                Tables\Actions\DeleteAction::make()->visible(config('filament-locations.driver') !== 'json'),
+            ->recordActions([
+                Actions\EditAction::make()->visible(config('filament-locations.driver') !== 'json'),
+                Actions\DeleteAction::make()->visible(config('filament-locations.driver') !== 'json'),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()->visible(config('filament-locations.driver') !== 'json'),
+            ->toolbarActions([
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make()->visible(config('filament-locations.driver') !== 'json'),
                 ]),
             ]);
     }

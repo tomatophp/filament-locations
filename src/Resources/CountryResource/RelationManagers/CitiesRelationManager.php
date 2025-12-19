@@ -3,8 +3,9 @@
 namespace TomatoPHP\FilamentLocations\Resources\CountryResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Actions;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +22,7 @@ class CitiesRelationManager extends RelationManager
         return trans('filament-locations::messages.city.title');
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $form): Schema
     {
         return $form
             ->schema([
@@ -79,25 +80,25 @@ class CitiesRelationManager extends RelationManager
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Actions\CreateAction::make(),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\Action::make('view')
+            ->recordActions([
+                Actions\Action::make('view')
                     ->icon('heroicon-o-eye')
                     ->url(fn (City $record): string => ViewCity::getUrl(['record' => $record])),
-                Tables\Actions\Action::make('edit')
+                Actions\Action::make('edit')
                     ->visible(config('filament-locations.driver') !== 'json')
                     ->label(trans('filament-locations::messages.city.edit'))
                     ->icon('heroicon-o-pencil-square')
                     ->url(fn (City $record): string => EditCity::getUrl(['record' => $record])),
-                Tables\Actions\DeleteAction::make(),
+                Actions\DeleteAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

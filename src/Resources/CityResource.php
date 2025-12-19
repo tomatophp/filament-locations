@@ -5,6 +5,7 @@ namespace TomatoPHP\FilamentLocations\Resources;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use TomatoPHP\FilamentLocations\Models\City;
 use TomatoPHP\FilamentLocations\Resources\CityResource\Pages;
 use TomatoPHP\FilamentLocations\Resources\CityResource\RelationManagers\AreasRelationManager;
@@ -14,7 +15,7 @@ class CityResource extends Resource
 {
     protected static ?string $model = City::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-map';
+    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-map';
 
     public static function getNavigationGroup(): ?string
     {
@@ -23,7 +24,7 @@ class CityResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form
             ->schema([

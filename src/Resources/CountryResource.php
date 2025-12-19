@@ -3,8 +3,10 @@
 namespace TomatoPHP\FilamentLocations\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Schemas;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use TomatoPHP\FilamentLocations\Models\Country;
@@ -15,7 +17,7 @@ class CountryResource extends Resource
 {
     protected static ?string $model = Country::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-flag';
+    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-flag';
 
     public static function getNavigationGroup(): ?string
     {
@@ -27,11 +29,12 @@ class CountryResource extends Resource
         return trans('filament-locations::messages.country.title');
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form
+            ->columns(1)
             ->schema([
-                Forms\Components\Grid::make(['default' => 2])
+                Schemas\Components\Grid::make(['default' => 2])
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->label(trans('filament-locations::messages.country.form.title'))
@@ -188,14 +191,14 @@ class CountryResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make()->visible(config('filament-locations.driver') !== 'json'),
-                Tables\Actions\DeleteAction::make()->visible(config('filament-locations.driver') !== 'json'),
+            ->recordActions([
+                Actions\ViewAction::make(),
+                Actions\EditAction::make()->visible(config('filament-locations.driver') !== 'json'),
+                Actions\DeleteAction::make()->visible(config('filament-locations.driver') !== 'json'),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()->visible(config('filament-locations.driver') !== 'json'),
+            ->toolbarActions([
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make()->visible(config('filament-locations.driver') !== 'json'),
                 ]),
             ]);
     }
