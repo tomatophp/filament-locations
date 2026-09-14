@@ -1,9 +1,11 @@
 <?php
 
+use TomatoPHP\FilamentLocations\Models\Country;
+
 use function PHPUnit\Framework\assertEquals;
 
 it('can get money format from dollar() helper', function () {
-    $currency = new \TomatoPHP\FilamentLocations\Models\Country;
+    $currency = new Country;
     $currency->name = 'United States';
     $currency->code = 'EG';
     $currency->iso3 = 'EGY';

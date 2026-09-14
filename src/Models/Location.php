@@ -3,6 +3,7 @@
 namespace TomatoPHP\FilamentLocations\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * @property int $id
@@ -31,8 +32,8 @@ class Location extends Model
      * @var array
      */
     protected $fillable = [
-        'modal_id',
-        'modal_type',
+        'model_id',
+        'model_type',
         'street',
         'zip',
         'is_main',
@@ -56,11 +57,19 @@ class Location extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * The owner of this location, stored in the `model_type` / `model_id` columns.
      */
-    public function modal()
+    public function model(): MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo('model');
+    }
+
+    /**
+     * @deprecated use model()
+     */
+    public function modal(): MorphTo
+    {
+        return $this->morphTo('model');
     }
 
     public function city()

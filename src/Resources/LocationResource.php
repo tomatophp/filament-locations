@@ -11,6 +11,9 @@ use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use TomatoPHP\FilamentLocations\Models\Area;
+use TomatoPHP\FilamentLocations\Models\City;
+use TomatoPHP\FilamentLocations\Models\Country;
 use TomatoPHP\FilamentLocations\Models\Location;
 use TomatoPHP\FilamentLocations\Resources\LocationResource\Pages;
 
@@ -37,14 +40,14 @@ class LocationResource extends Resource
                 Select::make('country_id')
                     ->label(trans('filament-locations::messages.location.form.country_id'))
                     ->options(function () {
-                        return \TomatoPHP\FilamentLocations\Models\Country::all()->pluck('name', 'id')->toArray();
+                        return Country::all()->pluck('name', 'id')->toArray();
                     })
                     ->searchable()
                     ->live(),
                 Select::make('city_id')
                     ->label(trans('filament-locations::messages.location.form.city_id'))
                     ->options(function (Get $get) {
-                        return \TomatoPHP\FilamentLocations\Models\City::where('country_id', $get('country_id'))
+                        return City::where('country_id', $get('country_id'))
                             ->get()
                             ->pluck('name', 'id')
                             ->toArray();
@@ -54,7 +57,7 @@ class LocationResource extends Resource
                 Select::make('area_id')
                     ->label(trans('filament-locations::messages.location.form.area_id'))
                     ->options(function (Get $get) {
-                        return \TomatoPHP\FilamentLocations\Models\Area::where('city_id', $get('city_id'))
+                        return Area::where('city_id', $get('city_id'))
                             ->get()
                             ->pluck('name', 'id')
                             ->toArray();
@@ -135,14 +138,14 @@ class LocationResource extends Resource
                         Select::make('country_id')
                             ->label(trans('filament-locations::messages.location.form.country_id'))
                             ->options(function () {
-                                return \TomatoPHP\FilamentLocations\Models\Country::all()->pluck('name', 'id')->toArray();
+                                return Country::all()->pluck('name', 'id')->toArray();
                             })
                             ->searchable()
                             ->live(),
                         Select::make('city_id')
                             ->label(trans('filament-locations::messages.location.form.city_id'))
                             ->options(function (Get $get) {
-                                return \TomatoPHP\FilamentLocations\Models\City::where('country_id', $get('country_id'))
+                                return City::where('country_id', $get('country_id'))
                                     ->get()
                                     ->pluck('name', 'id')
                                     ->toArray();
@@ -152,7 +155,7 @@ class LocationResource extends Resource
                         Select::make('area_id')
                             ->label(trans('filament-locations::messages.location.form.area_id'))
                             ->options(function (Get $get) {
-                                return \TomatoPHP\FilamentLocations\Models\Area::where('city_id', $get('city_id'))
+                                return Area::where('city_id', $get('city_id'))
                                     ->get()
                                     ->pluck('name', 'id')
                                     ->toArray();

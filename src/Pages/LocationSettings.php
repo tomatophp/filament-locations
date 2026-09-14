@@ -3,12 +3,14 @@
 namespace TomatoPHP\FilamentLocations\Pages;
 
 use Filament\Actions\Action;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Pages\SettingsPage;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
 use TomatoPHP\FilamentLocations\Models\Country;
 use TomatoPHP\FilamentLocations\Models\Currency;
 use TomatoPHP\FilamentLocations\Models\Language;
@@ -29,25 +31,16 @@ class LocationSettings extends SettingsPage
         return false;
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
-        $tenant = \Filament\Facades\Filament::getTenant();
-        if ($tenant) {
-            return [
-                Action::make('back')
-                    ->url(SettingsHub::getUrl(['tenant' => $tenant->id]))
-                    ->color('danger')
-                    ->label(trans('filament-locations::messages.back')),
-            ];
-        }
+        $tenant = Filament::getTenant();
 
         return [
             Action::make('back')
-                ->url(SettingsHub::getUrl())
+                ->url($tenant ? SettingsHub::getUrl(['tenant' => $tenant->id]) : SettingsHub::getUrl())
                 ->color('danger')
                 ->label(trans('filament-locations::messages.back')),
         ];
-
     }
 
     public function getTitle(): string
@@ -55,45 +48,46 @@ class LocationSettings extends SettingsPage
         return trans('filament-locations::messages.settings.location.title');
     }
 
-    protected function getFormSchema(): array
+    public function form(Schema $schema): Schema
     {
-        return [
-            Grid::make(['default' => 1])->schema([
-                TextArea::make('site_address')
-                    ->label(trans('filament-locations::messages.settings.location.form.site_address'))
-                    ->hint(config('filament-settings-hub.show_hint') ? 'setting("site_address")' : null),
-                Select::make('site_location')
-                    ->preload()
-                    ->searchable()
-                    ->live()
-                    ->afterStateUpdated(function (Get $get, Set $set) {
-                        $country = Country::query()->where('code', $get('site_location'))->first();
-                        if ($country) {
-                            $set('site_phone_code', $country->phone);
-                            $set('site_currency', $country->currency);
-                        }
-                    })
-                    ->options(Country::query()->pluck('name', 'code')->toArray())
-                    ->label(trans('filament-locations::messages.settings.location.form.site_location'))
-                    ->hint(config('filament-settings-hub.show_hint') ? 'setting("site_location")' : null),
-                Select::make('site_phone_code')
-                    ->searchable()
-                    ->options(Country::query()->pluck('phone', 'phone')->toArray())
-                    ->label(trans('filament-locations::messages.settings.location.form.site_phone_code'))
-                    ->hint(config('filament-settings-hub.show_hint') ? 'setting("site_phone_code")' : null),
-                Select::make('site_currency')
-                    ->searchable()
-                    ->options(Currency::query()->pluck('name', 'iso')->toArray())
-                    ->required()
-                    ->label(trans('filament-locations::messages.settings.location.form.site_currency'))
-                    ->hint(config('filament-settings-hub.show_hint') ? 'setting("site_currency")' : null),
-                Select::make('site_language')
-                    ->searchable()
-                    ->options(Language::query()->pluck('name', 'iso')->toArray())
-                    ->label(trans('filament-locations::messages.settings.location.form.site_language'))
-                    ->hint(config('filament-settings-hub.show_hint') ? 'setting("site_language")' : null),
-            ]),
-
-        ];
+        return $schema
+            ->columns(1)
+            ->components([
+                Grid::make(['default' => 1])->schema([
+                    Textarea::make('site_address')
+                        ->label(trans('filament-locations::messages.settings.location.form.site_address'))
+                        ->hint(config('filament-settings-hub.show_hint') ? 'setting("site_address")' : null),
+                    Select::make('site_location')
+                        ->preload()
+                        ->searchable()
+                        ->live()
+                        ->afterStateUpdated(function (Get $get, Set $set) {
+                            $country = Country::query()->where('code', $get('site_location'))->first();
+                            if ($country) {
+                                $set('site_phone_code', $country->phone);
+                                $set('site_currency', $country->currency);
+                            }
+                        })
+                        ->options(fn (): array => Country::query()->pluck('name', 'code')->toArray())
+                        ->label(trans('filament-locations::messages.settings.location.form.site_location'))
+                        ->hint(config('filament-settings-hub.show_hint') ? 'setting("site_location")' : null),
+                    Select::make('site_phone_code')
+                        ->searchable()
+                        ->options(fn (): array => Country::query()->pluck('phone', 'phone')->toArray())
+                        ->label(trans('filament-locations::messages.settings.location.form.site_phone_code'))
+                        ->hint(config('filament-settings-hub.show_hint') ? 'setting("site_phone_code")' : null),
+                    Select::make('site_currency')
+                        ->searchable()
+                        ->options(fn (): array => Currency::query()->pluck('name', 'iso')->toArray())
+                        ->required()
+                        ->label(trans('filament-locations::messages.settings.location.form.site_currency'))
+                        ->hint(config('filament-settings-hub.show_hint') ? 'setting("site_currency")' : null),
+                    Select::make('site_language')
+                        ->searchable()
+                        ->options(fn (): array => Language::query()->pluck('name', 'iso')->toArray())
+                        ->label(trans('filament-locations::messages.settings.location.form.site_language'))
+                        ->hint(config('filament-settings-hub.show_hint') ? 'setting("site_language")' : null),
+                ]),
+            ]);
     }
 }

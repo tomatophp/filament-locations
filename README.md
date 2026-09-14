@@ -11,13 +11,25 @@
 
 A database of countries, cities, area, languages, currenacy with json base and database base for FilamentPHP
 
+## Version Compatibility
+
+| Plugin | Filament | Laravel | PHP |
+|--------|----------|---------|-----|
+| 5.x    | 5.x      | 12.x - 13.x | 8.2+ |
+| 4.x    | 4.x      | 11.x - 12.x | 8.2+ |
+| 2.x    | 3.x      | 10.x - 11.x | 8.1+ |
+
 ## Screenshots
 
-![Countires](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/country.png)
-![Edit Countires](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/edit-country.png)
-![Languages](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/languages.png)
-![Currency](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/currency.png)
-![Locaitons](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/locations.png)
+![Countries](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/countries-light.png)
+![Countries Dark](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/countries-dark.png)
+![View Country](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/country-view-light.png)
+![View Country Dark](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/country-view-dark.png)
+![Languages](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/languages-light.png)
+![Currencies](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/currencies-dark.png)
+![Locations](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/locations-light.png)
+![Location Settings](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/location-settings-light.png)
+![Location Settings Dark](https://raw.githubusercontent.com/tomatophp/filament-locations/master/arts/location-settings-dark.png)
 
 
 ## Installation
@@ -25,6 +37,9 @@ A database of countries, cities, area, languages, currenacy with json base and d
 ```bash
 composer require tomatophp/filament-locations
 ```
+
+The package uses [Filament Settings Hub](https://github.com/tomatophp/filament-settings-hub) for the location settings page, so install it first if it is not installed yet (`php artisan filament-settings-hub:install`).
+
 after install your package please run this command
 
 ```bash

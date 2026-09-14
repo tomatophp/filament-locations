@@ -6,7 +6,9 @@ use Sushi\Sushi;
 
 trait SwitchDriver
 {
-    use Sushi;
+    use Sushi {
+        bootSushi as protected bootSushiConnection;
+    }
 
     public static function resolveConnection($connection = null)
     {
@@ -18,50 +20,14 @@ trait SwitchDriver
         return config('filament-locations.driver') === 'json' ? static::class : $this->connection;
     }
 
+    /**
+     * Only the json driver reads its rows through Sushi. Sushi defers creating the model
+     * instance it needs until the model has finished booting, which Laravel 12.8+ requires.
+     */
     public static function bootSushi()
     {
         if (config('filament-locations.driver') === 'json') {
-            $instance = (new self);
-
-            $cachePath = $instance->sushiCachePath();
-            $dataPath = $instance->sushiCacheReferencePath();
-
-            $states = [
-                'cache-file-found-and-up-to-date' => function () use ($cachePath) {
-                    static::setSqliteConnection($cachePath);
-                },
-                'cache-file-not-found-or-stale' => function () use ($cachePath, $dataPath, $instance) {
-                    static::cacheFileNotFoundOrStale($cachePath, $dataPath, $instance);
-                },
-                'no-caching-capabilities' => function () use ($instance) {
-                    static::setSqliteConnection(':memory:');
-
-                    $instance->migrate();
-                },
-            ];
-
-            switch (true) {
-                case ! $instance->sushiShouldCache():
-                    $states['no-caching-capabilities']();
-
-                    break;
-
-                case file_exists($cachePath) && filemtime($dataPath) <= filemtime($cachePath):
-                    $states['cache-file-found-and-up-to-date']();
-
-                    break;
-
-                case file_exists($instance->sushiCacheDirectory()) && is_writable($instance->sushiCacheDirectory()):
-                    $states['cache-file-not-found-or-stale']();
-
-                    break;
-
-                default:
-                    $states['no-caching-capabilities']();
-
-                    break;
-            }
+            static::bootSushiConnection();
         }
-
     }
 }

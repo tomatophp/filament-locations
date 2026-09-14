@@ -3,6 +3,8 @@
 namespace TomatoPHP\FilamentLocations;
 
 use Illuminate\Support\ServiceProvider;
+use TomatoPHP\FilamentLocations\Console\FilamentLocationsInstall;
+use TomatoPHP\FilamentLocations\Console\FilamentLocationsLoad;
 
 require_once __DIR__ . '/helpers.php';
 
@@ -12,8 +14,8 @@ class FilamentLocationsServiceProvider extends ServiceProvider
     {
         // Register generate command
         $this->commands([
-            \TomatoPHP\FilamentLocations\Console\FilamentLocationsInstall::class,
-            \TomatoPHP\FilamentLocations\Console\FilamentLocationsLoad::class,
+            FilamentLocationsInstall::class,
+            FilamentLocationsLoad::class,
         ]);
 
         // Register Config file
