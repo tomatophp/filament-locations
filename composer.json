@@ -2,6 +2,12 @@
     "name": "tomatophp/filament-locations",
     "type": "library",
     "description": "Database Seeds for Countries / Cities / Areas / Languages / Currancy with ready to use resources for FilamentPHP",
+    "homepage": "https://tomatophp.com/en/plugins/filament-locations",
+    "support": {
+        "issues": "https://github.com/tomatophp/filament-locations/issues",
+        "source": "https://github.com/tomatophp/filament-locations",
+        "docs": "https://tomatophp.com/en/plugins/filament-locations"
+    },
     "keywords": [
         "php",
         "laravel",
